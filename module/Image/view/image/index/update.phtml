@@ -1,0 +1,33 @@
+<?php
+    $title = 'Update image';
+    $this->headTitle($title);
+?>
+
+<h1><?=$this->escapeHtml($title)?></h1>
+
+<?php
+    $form->setAttribute('action', $this->url('image', ['action' => 'add']));
+    $form->prepare();
+?>
+
+<?php
+    echo $this->form()->openTag($form);
+    echo $this->formHidden($form->get('id'));
+?>
+<br />
+
+<?php
+    echo $this->formRow($form->get('name'));
+?>
+<br />
+
+<?php
+    echo $this->formRow($form->get('image'));
+?>
+<br />
+
+<?php
+    echo $this->formSubmit($form->get('submit'));
+?>
+
+<?= $this->form()->closeTag() ?>

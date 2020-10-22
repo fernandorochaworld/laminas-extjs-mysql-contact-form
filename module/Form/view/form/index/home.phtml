@@ -1,0 +1,27 @@
+<?php
+/**
+ * @var Laminas\View\Renderer\PhpRenderer $this
+ */
+?>
+
+<?php
+
+$this->headLink()
+    ->appendStylesheet($this->basePath("libs/ext-3.4.1/resources/css/ext-all.css"))
+    ->appendStylesheet($this->basePath("libs/ext-3.4.1/examples/shared/examples.css"))
+    ->appendStylesheet($this->basePath("libs/ext-3.4.1/examples/test/grid-examples.css"))
+    ->appendStylesheet($this->basePath("libs/ext-3.4.1/examples/test/test.css"));
+
+?>
+<div>
+    <h1>Welcome to the Contact Application Laminas - ExtJS - MySQL</h1>
+    <div id="form-example"></div>
+    <br>
+    <div id="grid-example"></div>
+</div>
+
+<?php $this->headScript()
+    ->appendFile($this->basePath("libs/ext-3.4.1/adapter/ext/ext-base.js"))
+    ->appendFile($this->basePath("libs/ext-3.4.1/ext-all.js"))
+    ->appendFile($this->basePath("libs/ext-3.4.1/examples/test/my-contact-form.js"))
+?>

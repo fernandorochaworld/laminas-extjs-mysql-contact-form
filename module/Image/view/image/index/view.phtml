@@ -1,0 +1,21 @@
+<?php
+    $title = 'View Image';
+    $this->headTitle($title);
+?>
+
+<h1><?=$this->escapeHtml($title)?></h1>
+
+<ul class="list-group">
+    <li class="list-group-item align-items-center">
+        <span>Name: </span> <?=$image->getName()?>
+    </li>
+    <li class="list-group-item align-items-center">
+        <span>Image: </span><br />
+        <img src="http://192.168.0.19/<?=$image->getImage()?>" style="max-width: 1000px;">
+    </li>
+</ul>
+<br />
+
+<div class="row">
+    <a href="<?=$this->basePath('/')?>" class="btn btn-primary">BACK</a>
+</div>

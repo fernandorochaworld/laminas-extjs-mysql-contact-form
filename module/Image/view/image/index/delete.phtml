@@ -1,0 +1,19 @@
+<?php
+    $title = 'Delete image';
+    $this->headTitle($title);
+?>
+
+<h1><?=$this->escapeHtml($title)?></h1>
+
+<?php
+    $url = $this->url('image', ['action'=>'delete', 'id'=>$image->getId()]);
+?>
+
+<form action="<?=$url?>" method="POST">
+    <p>Are you sure?</p>
+    <div class="form-group">
+        <input type="hidden" name="id" value="<?=$image->getId()?>">
+        <input type="submit" name="delete" value="Yes" class="btn btn-danger">
+        <input type="submit" name="delete" value="No" class="btn btn-default">
+    </div>
+</form>
