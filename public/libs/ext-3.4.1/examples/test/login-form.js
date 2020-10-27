@@ -15,7 +15,7 @@ Ext.onReady(function () {
 
         simple = new Ext.FormPanel({
             labelAlign: 'top',
-            title: 'My Contact Form',
+            title: 'Login into the system',
             bodyStyle:'padding: 7px;',
             // width: 300,
             items: [
@@ -71,6 +71,7 @@ Ext.onReady(function () {
         });
 
         simple.render('login-form');
+        simple.getForm().reset();
     }
 
 });

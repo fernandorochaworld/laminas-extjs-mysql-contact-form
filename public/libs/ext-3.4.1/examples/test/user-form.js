@@ -220,7 +220,7 @@ Ext.onReady(function () {
                     dataIndex: 'email'
                 },
                 {
-                    header: 'Priority',
+                    header: 'Role',
                     width: 75,
                     sortable: true,
                     renderer: role,
