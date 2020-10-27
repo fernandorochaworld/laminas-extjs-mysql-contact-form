@@ -34,11 +34,22 @@ class UserController extends AbstractActionController
         return $this->redirect()->toRoute('login');
     }
 
+    private function redirectToHome() {
+        return $this->redirect()->toRoute('home');
+    }
+
     public function homeAction()
     {
 		if (!$this->authenticationService->hasIdentity()) {
 			return $this->redirectToLogin();
         }
+        
+		# make sure that only the admin can acess this page
+		if(!$this->authPlugin()->hasPermission('user-page')) {
+			return $this->redirectToHome();
+			// return $this->redirectToLogin();
+        }
+        
         return new ViewModel();
     }
 

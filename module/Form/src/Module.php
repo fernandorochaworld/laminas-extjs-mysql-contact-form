@@ -10,14 +10,13 @@ declare(strict_types=1);
 
 namespace Form;
 
-use Form\Middleware\AuthMiddleware;
+use Form\Plugin\Factory\AuthPluginFactory;
+use Form\View\Helper\AuthHelper;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Db\Adapter\AdapterInterface;
 use Laminas\Db\ResultSet\ResultSet;
 use Laminas\Db\TableGateway\TableGateway;
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;
-use Laminas\Psr7Bridge\Psr7Response;
-use Laminas\Psr7Bridge\Psr7ServerRequest;
 use Laminas\Db\Adapter\Adapter;
 
 class Module implements ConfigProviderInterface
@@ -111,6 +110,19 @@ class Module implements ConfigProviderInterface
             'factories' => [
                 AuthPlugin::class => AuthPluginFactory::class
             ],
+        ];
+    }
+
+    # let the service_manager know about your helper
+    public function getViewHelperConfig()
+    {
+        return [
+            'aliases' => [
+                'authHelper' => AuthHelper::class,
+            ],
+            'factories' => [
+                AuthHelper::class => AuthPluginFactory::class
+            ]
         ];
     }
 }

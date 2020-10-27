@@ -7,20 +7,20 @@ namespace Form\Plugin;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
-use Form\Model\Table\UsersTable;
+use Form\Model\UserTable;
 
 class AuthPlugin extends AbstractPlugin
 {
 	protected $authenticationService;
-	protected $usersTable;
+	protected $userTable;
 
 	public function __construct(
-		AuthenticationService $authenticationService //, 
-		// UsersTable $usersTable
+		// AuthenticationService $authenticationService, 
+		UserTable $userTable
 	)
 	{
-		$this->authenticationService = $authenticationService;
-		// $this->usersTable = $usersTable;
+		$this->authenticationService = new AuthenticationService();
+		$this->userTable = $userTable;
 	}
 
 	public function __invoke()
@@ -34,8 +34,8 @@ class AuthPlugin extends AbstractPlugin
 			return;
 		}
 
-		return $this->usersTable->fetchAccountById(
-			(int)$this->authenticationService->getIdentity()->user_id
+		return $this->userTable->getData(
+			(int)$this->authenticationService->getIdentity()->id
 		);
 	}
 }

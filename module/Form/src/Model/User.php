@@ -1,6 +1,7 @@
 <?php
 
 namespace Form\Model;
+use Laminas\Permissions\Acl\Acl;
 
 class User {
     
@@ -26,6 +27,20 @@ class User {
             'password' => $this->password,
             'role' => $this->role,
         ];
+    }
+
+    public function hasPermission($resource) {
+        $acl = new Acl();
+        $acl->addRole('member');
+        $acl->addRole('admin', 'member');
+
+        $acl->addResource('user-page');
+        $acl->addResource('contact-page');
+
+        $acl->allow('member', 'contact-page');
+        $acl->allow('admin', 'user-page');
+
+        return $acl->isAllowed($this->role, $resource);
     }
 
     /**
