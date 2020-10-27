@@ -207,9 +207,7 @@ Ext.onReady(function () {
         });
 
         simple.render('form-example');
-        setTimeout(() => {
-            simple.getForm().reset();
-        }, 400);
+        simple.getForm().reset();
     }
 
     var formRecord = Ext.data.Record.create([ // creates a subclass of Ext.data.Record

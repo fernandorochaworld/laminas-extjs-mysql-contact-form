@@ -16,7 +16,7 @@ return [
     'db' => [
         'driver' => 'Pdo',
         'dsn' => 'mysql:dbname=laminas-extjs-mysql-contact-form;host=localhost',
-        'username' => 'fernando',
-        'password' => '123456',
+        'username' => '',
+        'password' => '',
     ]
 ];

@@ -24,6 +24,7 @@ Ext.onReady(function () {
                     fieldLabel: 'Email',
                     name: 'email',
                     vtype:'email',
+                    value: '',
                     anchor:'1'
                 },
                 {
@@ -33,6 +34,7 @@ Ext.onReady(function () {
                     inputType: 'password',
                     allowBlank: false,
                     name: 'password',
+                    value: '',
                     anchor:'1'
                 }
             ],

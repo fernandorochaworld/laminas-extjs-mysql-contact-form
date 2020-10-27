@@ -16,8 +16,8 @@ $this->headLink()
 <div>
     <h1>
         Welcome to the Contact Application Laminas - ExtJS - MySQL 
-        <a href="/login/logout">Logout</a>
-        <?php if ($this->authHelper()->hasPermission('user-page')) { ?><a href="/user">Users</a><?php } ?>
+        - <a href="/login/logout">Logout</a>
+        <?php if ($this->authHelper()->hasPermission('user-page')) { ?>- <a href="/user">Users</a><?php } ?>
     </h1>
     <div id="form-example"></div>
     <br>
