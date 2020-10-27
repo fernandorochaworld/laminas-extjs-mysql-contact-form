@@ -27,6 +27,7 @@ class UserTable
         $data = [
             'name' => $user->getName(),
             'email' => $user->getEmail(),
+            'role' => $user->getRole(),
         ];
         if ($user->getPassword()) {
             $data['password'] = (new Bcrypt())->create($user->getPassword());

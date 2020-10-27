@@ -49,13 +49,37 @@ return [
             'form' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/form[/:action][/:id]',
+                    'route'    => '/api/form[/:action][/:id]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
                     ],
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
+            'user_home' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/user',
+                    'defaults' => [
+                        'controller' => Controller\UserController::class,
+                        'action'     => 'home',
+                    ],
+                ],
+            ],
+            'user' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/api/user[/:action][/:id]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\UserController::class,
                         'action'     => 'index',
                     ],
                 ],

@@ -90,6 +90,12 @@ class Module implements ConfigProviderInterface
                         $container->get(Adapter::class),
                         $container->get(Model\UserTable::class)
                     );
+                },
+                Controller\UserController::class => function($container) {
+                    return new Controller\UserController(
+                        new AuthenticationService(),
+                        $container->get(Model\UserTable::class)
+                    );
                 }
             ]
         ];

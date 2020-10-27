@@ -6,20 +6,19 @@ Ext.onReady(function () {
     var apiUrl = "";
 
     Ext.namespace('Ext.exampledata');
-    Ext.exampledata.priorities = [
-        { id: 1, name: 'Low' },
-        { id: 2, name: 'Medium' },
-        { id: 3, name: 'High' },
+    Ext.exampledata.roles = [
+        { id: 'admin', name: 'Admin' },
+        { id: 'member', name: 'Member' },
     ];
 
-    var priorityRecord = Ext.data.Record.create([ // creates a subclass of Ext.data.Record
+    var roleRecord = Ext.data.Record.create([ // creates a subclass of Ext.data.Record
         { name: 'id', mapping: 'id' },
         { name: 'name', mapping: 'name' },
     ]);
 
-    var priorityStore = new Ext.data.ArrayStore({
-        fields: priorityRecord,
-        data: Ext.exampledata.priorities,
+    var roleStore = new Ext.data.ArrayStore({
+        fields: roleRecord,
+        data: Ext.exampledata.roles,
         id: 'id'
     });
     var simple = null;
@@ -32,7 +31,7 @@ Ext.onReady(function () {
 
         simple = new Ext.FormPanel({
             labelAlign: 'top',
-            title: 'My Contact Form',
+            title: 'User Form',
             bodyStyle:'padding:5px',
             width: 600,
             items: [{
@@ -54,102 +53,52 @@ Ext.onReady(function () {
                         anchor:'95%'
                     }, {
                         xtype:'textfield',
-                        fieldLabel: 'Company',
-                        name: 'company',
+                        fieldLabel: 'Email',
+                        name: 'email',
+                        vtype:'email',
                         anchor:'95%'
-                    }]
+                    },
+                    new Ext.form.ComboBox({
+                        fieldLabel: 'Role',
+                        store: roleStore,
+                        displayField: 'name',
+                        valueField: 'id',
+                        value: '',
+                        typeAhead: true,
+                        mode: 'local',
+                        forceSelection: true,
+                        triggerAction: 'all',
+                        emptyText: 'Select a role',
+                        selectOnFocus: true,
+                        allowBlank: false,
+                        name: 'role',
+                        editable: false,
+                        anchor:'95%'
+                    })]
                 },{
                     columnWidth:.5,
                     layout: 'form',
                     border:false,
                     items: [
-                        new Ext.form.ComboBox({
-                            fieldLabel: 'Priority',
-                            store: priorityStore,
-                            displayField: 'name',
-                            valueField: 'id',
-                            value: '',
-                            typeAhead: true,
-                            mode: 'local',
-                            forceSelection: true,
-                            triggerAction: 'all',
-                            emptyText: 'Select a priority',
-                            selectOnFocus: true,
-                            allowBlank: false,
-                            name: 'priority_id',
-                            editable: false,
-                            anchor:'95%'
-                        }),{
+                        {
                             xtype:'textfield',
-                            fieldLabel: 'Email',
-                            name: 'email',
-                            vtype:'email',
-                            anchor:'95%'
+                            type: 'password',
+                            fieldLabel: 'Password',
+                            inputType: 'password',
+                            allowBlank: false,
+                            name: 'password',
+                            anchor:'1'
+                        },
+                        {
+                            xtype:'textfield',
+                            type: 'password',
+                            fieldLabel: 'Password Confirmation',
+                            inputType: 'password',
+                            allowBlank: false,
+                            name: 'password_confirmation',
+                            anchor:'1'
                         }
                     ]
-                }]
-            },{
-                xtype:'tabpanel',
-                plain:true,
-                activeTab: 0,
-                height:230,
-                /*
-                  By turning off deferred rendering we are guaranteeing that the
-                  form fields within tabs that are not activated will still be rendered.
-                  This is often important when creating multi-tabbed forms.
-                */
-                deferredRender: false,
-                defaults:{bodyStyle:'padding:10px'},
-                items:[{
-                    title:'Personal Details',
-                    layout:'form',
-                    defaults: {width: 220},
-                    defaultType: 'textfield',
-    
-                    items: [{
-                        xtype: 'datefield',
-                        name: 'birthdate',
-                        fieldLabel: 'Birth Date'
-                    }, {
-                        fieldLabel: 'Profession',
-                        name: 'profession',
-                        value: ''
-                    }, {
-                        xtype: 'textarea',
-                        name: 'notes',
-                        fieldLabel: 'Notes',
-                        anchor:'100%'
-                    }]
-                },{
-                    title:'Phone Numbers',
-                    layout:'form',
-                    defaults: {width: 230},
-                    defaultType: 'textfield',
-    
-                    items: [{
-                        fieldLabel: 'Home',
-                        name: 'phone_home',
-                        value: '(888) 555-1212'
-                    },{
-                        fieldLabel: 'Business',
-                        name: 'phone_business'
-                    },{
-                        fieldLabel: 'Mobile',
-                        name: 'phone_mobile'
-                    },{
-                        fieldLabel: 'Fax',
-                        name: 'fax'
-                    }]
-                },{
-                    cls:'x-plain',
-                    title:'Biography',
-                    layout:'fit',
-                    items: {
-                        xtype:'htmleditor',
-                        id:'bio2',
-                        name: 'biography',
-                        fieldLabel:'Biography'
-                    }
                 }]
             }],
     
@@ -170,7 +119,7 @@ Ext.onReady(function () {
                     gridPanelMask.show();
 
                     Ext.Ajax.request({
-                        url: apiUrl + '/api/form',
+                        url: apiUrl + '/api/user',
                         method: 'POST',
                         success: function (response) {
                             const data = JSON.parse(response.responseText);
@@ -215,19 +164,8 @@ Ext.onReady(function () {
     var formRecord = Ext.data.Record.create([ // creates a subclass of Ext.data.Record
         { name: 'id', mapping: 'id' },
         { name: 'name', mapping: 'name' },
-        { name: 'company', mapping: 'company' },
         { name: 'email', mapping: 'email' },
-        { name: 'birthdate', mapping: 'birthdate', type: 'date', dateFormat: 'Y-m-d' },
-        { name: 'profession', mapping: 'profession' },
-        { name: 'notes', mapping: 'notes' },
-        { name: 'phone_home', mapping: 'phone_home' },
-        { name: 'phone_business', mapping: 'phone_business' },
-        { name: 'phone_mobile', mapping: 'phone_mobile' },
-        { name: 'fax', mapping: 'fax' },
-        { name: 'biography', mapping: 'biography' },
-        { name: 'priority_id', mapping: 'priority_id', type: 'float' },
-        { name: 'created_at', mapping: 'created_at', type: 'date', dateFormat: 'Y-m-d H:i:s' },
-        { name: 'updated_at', mapping: 'updated_at', type: 'date', dateFormat: 'Y-m-d H:i:s' },
+        { name: 'role', mapping: 'role' },
     ]);
 
     // create the data store
@@ -246,17 +184,15 @@ Ext.onReady(function () {
          * Custom function used for column renderer
          * @param {Number} val
          */
-        function priority(val) {
+        function role(val) {
 
-            var p = priorityStore.getById(val);
+            var p = roleStore.getById(val);
             var pName = p ? p.get('name') : '';
 
-            if (val === 1) {
+            if (val === 'admin') {
                 return '<span style="color:green;">' + pName + '</span>';
-            } else if (val === 2) {
+            } else if (val === 'member') {
                 return '<span style="color:orange;">' + pName + '</span>';
-            } else if (val === 3) {
-                return '<span style="color:red;">' + pName + '</span>';
             }
             return val;
         }
@@ -280,18 +216,17 @@ Ext.onReady(function () {
                     dataIndex: 'name'
                 },
                 {
+                    header: 'Email',
+                    width: 120,
+                    sortable: true,
+                    dataIndex: 'email'
+                },
+                {
                     header: 'Priority',
                     width: 75,
                     sortable: true,
-                    renderer: priority,
-                    dataIndex: 'priority_id'
-                },
-                {
-                    header: 'Created At',
-                    width: 120,
-                    sortable: true,
-                    renderer: Ext.util.Format.dateRenderer('Y-m-d h:iA'),
-                    dataIndex: 'created_at'
+                    renderer: role,
+                    dataIndex: 'role'
                 },
                 {
                     xtype: 'actioncolumn',
@@ -308,7 +243,7 @@ Ext.onReady(function () {
                                     //grid.setDisabled(true)
 
                                     Ext.Ajax.request({
-                                        url: apiUrl + '/api/form/' + rec.get('id'),
+                                        url: apiUrl + '/api/user/' + rec.get('id'),
                                         method: 'DELETE',
                                         success: function (response) {
                                             store.removeAt(rowIndex);
@@ -329,6 +264,7 @@ Ext.onReady(function () {
                         tooltip: 'Edit',
                         handler: function (grid, rowIndex, colIndex) {
                             var rec = store.getAt(rowIndex);
+                            rec.data.password = null;
                             var editFormForm = simple.getForm();
                             editFormForm.reset();
                             editFormForm.setValues(rec.data);
@@ -340,7 +276,7 @@ Ext.onReady(function () {
             autoExpandColumn: 'name',
             height: 350,
             width: 600,
-            title: 'Contact List',
+            title: 'User List',
             // config options for stateful behavior
             stateful: true,
             stateId: 'grid'
@@ -352,12 +288,11 @@ Ext.onReady(function () {
 
     function loadForms() {
         Ext.Ajax.request({
-            url: apiUrl + '/api/form/payload',
+            url: apiUrl + '/api/user',
             success: function (response) {
                 const data = JSON.parse(response.responseText);
-                store.loadData(data.forms);
-                store.loadData(data.forms);
-                priorityStore.loadData(data.priorities);
+                store.loadData(data);
+                // roleStore.loadData(data.roles);
             },
             headers: {},
             params: {}

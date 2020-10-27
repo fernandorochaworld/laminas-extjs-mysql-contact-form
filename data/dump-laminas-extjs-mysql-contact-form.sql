@@ -56,7 +56,8 @@ CREATE TABLE `users` (
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(256) NOT NULL,
+  `role` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = INNODB;
 
-INSERT INTO users(name, email, password) values('Admin', 'admin@test', 'password');
+INSERT INTO users(name, email, password, role) values('Admin', 'admin@test.test', 'password', 'admin');

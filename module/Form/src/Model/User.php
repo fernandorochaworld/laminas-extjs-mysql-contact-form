@@ -8,12 +8,14 @@ class User {
     public $name;
     public $email;
     public $password;
+    public $role;
 
     public function exchangeArray($data) {
         $this->id = $data['id'];
         $this->name = $data['name'];
         $this->email = $data['email'];
         $this->password = $data['password'];
+        $this->role = $data['role'];
     }
 
     public function getArrayCopy() {
@@ -22,6 +24,7 @@ class User {
             'name' => $this->name,
             'email' => $this->email,
             'password' => $this->password,
+            'role' => $this->role,
         ];
     }
 
@@ -102,6 +105,26 @@ class User {
     public function setPassword($password)
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of role
+     */ 
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * Set the value of role
+     *
+     * @return  self
+     */ 
+    public function setRole($role)
+    {
+        $this->role = $role;
 
         return $this;
     }
