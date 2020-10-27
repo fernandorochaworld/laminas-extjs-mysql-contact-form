@@ -10,12 +10,32 @@ declare(strict_types=1);
 
 namespace Form;
 
+use Form\Middleware\AuthMiddleware;
 use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
 
 return [
     'router' => [
         'routes' => [
+            // 'home' => [
+            //     'type' => Segment::class,
+            //     'options' => [
+            //         'route' => '/',
+            //         'defaults' => [
+            //             'middleware' => AuthMiddleware::class,
+            //         ],
+            //     ],
+            // ],
+            'login' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/login[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\LoginController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
             'home' => [
                 'type'    => Literal::class,
                 'options' => [

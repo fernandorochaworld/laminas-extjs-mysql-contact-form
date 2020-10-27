@@ -14,14 +14,12 @@ $this->headLink()
 
 ?>
 <div>
-    <h1>Welcome to the Contact Application Laminas - ExtJS - MySQL <a href="/login/logout">Logout</a></h1>
-    <div id="form-example"></div>
-    <br>
-    <div id="grid-example"></div>
+    <h1>Login Page</h1>
+    <div id="login-form" style="width: 300px;"></div>
 </div>
 
 <?php $this->headScript()
     ->appendFile($this->basePath("libs/ext-3.4.1/adapter/ext/ext-base.js"))
     ->appendFile($this->basePath("libs/ext-3.4.1/ext-all.js"))
-    ->appendFile($this->basePath("libs/ext-3.4.1/examples/test/my-contact-form.js"))
+    ->appendFile($this->basePath("libs/ext-3.4.1/examples/test/login-form.js"))
 ?>

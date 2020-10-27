@@ -12,6 +12,8 @@
  * This should be an array of module namespaces used in the application.
  */
 return [
+    'Laminas\Session',
+    'Laminas\Mvc\Middleware',
     'Laminas\Paginator',
     'Laminas\Db',
     'Laminas\Form',
@@ -31,7 +33,8 @@ return [
     // 'Laminas\ApiTools\Rest',
     // 'Laminas\ApiTools\ContentValidation',
     // 'Laminas\ApiTools',
+    // 'Laminas\Diactoros',
+    // 'Image',
     'Application',
-    'Image',
     'Form',
 ];

@@ -48,3 +48,15 @@ VALUES
 ('Contact 2', 2, now()),
 ('Contact 3', 1, now()),
 ('Contact 4', 3, now());
+
+
+----- Module Form
+CREATE TABLE `users` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = INNODB;
+
+INSERT INTO users(name, email, password) values('Admin', 'admin@test', 'password');

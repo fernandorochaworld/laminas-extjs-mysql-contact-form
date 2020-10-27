@@ -6,6 +6,9 @@
  * @see https://docs.laminas.dev/tutorials/advanced-config/#environment-specific-system-configuration
  * @see https://docs.laminas.dev/tutorials/advanced-config/#environment-specific-application-configuration
  */
+
+use Form\Middleware\AuthMiddleware;
+
 return [
     // Retrieve list of modules used in this application.
     'modules' => require __DIR__ . '/modules.config.php',
@@ -60,4 +63,9 @@ return [
     // Initial configuration with which to seed the ServiceManager.
     // Should be compatible with Laminas\ServiceManager\Config.
     // 'service_manager' => [],
+    'service_manager' => [
+        'invokables' => array(
+            'middleware' => AuthMiddleware::class
+        )
+    ]    
 ];
